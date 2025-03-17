@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for h1 tags */
+h1 {
+  @apply text-4xl font-bold text-left text-[#000000] mb-4;
+}
