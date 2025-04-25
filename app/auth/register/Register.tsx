@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { registerUser, RegistrationData } from "@/app/api/auth/authantication";
 import Link from "next/link";
 import Image from "next/image";
-import Footer from "@/app/component/layout/Footer";
+import Footer from "@/app/component/layout/FullFooter";
 
 const Register = () => {
   const router = useRouter();
