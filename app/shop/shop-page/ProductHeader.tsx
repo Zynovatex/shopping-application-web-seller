@@ -11,7 +11,7 @@ const ProductHeader = () => {
       {/* Right: Action Buttons */}
       <div className="flex h-8 space-x-3">
         {/* Export Button */}
-        <button className="flex items-center space-x-2 border border-[#7B5AF7] text-[#7B5AF7] px-4 py-2 rounded-md hover:bg-[#7B5AF7] hover:text-white transition">
+        <button onClick={() => router.push("/app/product/saveProductList")} className="flex items-center space-x-2 border border-[#7B5AF7] text-[#7B5AF7] px-4 py-2 rounded-md hover:bg-[#7B5AF7] hover:text-white transition">
           <FiDownload size={16} />
           <span>Export</span>
         </button>

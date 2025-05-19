@@ -1,17 +1,19 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { FiSearch, FiUser } from "react-icons/fi";
+import { FiSearch, FiUser, FiMenu, FiX } from "react-icons/fi";
 
 const SellerNav = () => {
   const [profilePhoto, setProfilePhoto] = useState<string>("/propic.jpg");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
-  // Simulating a fetch request from the database
   useEffect(() => {
     const fetchProfilePhoto = async () => {
-      // Replace with actual API request
-      const response = await fetch("/api/seller/profile"); 
+      const response = await fetch("/api/seller/profile");
       const data = await response.json();
       setProfilePhoto(data.profilePhoto);
     };
@@ -19,71 +21,38 @@ const SellerNav = () => {
     fetchProfilePhoto();
   }, []);
 
+  const menuLinks = [
+    
+    { label: "Shop", path: "/shop" },
+    { label: "Customer", path: "/customers" },
+    { label: "Order", path: "/orders" },
+    { label: "Reports", path: "/reports" },
+    { label: "Coupuns", path: "/coupuns" },
+    { label: "Delivery", path: "/delivery" },
+    { label: "Help & Support", path: "/help" },
+  ];
+
   return (
-    <nav className="bg-white shadow-md h-[60px] px-6 py-4 flex justify-between items-center">
-      {/* Left Section: Logo & Navigation */}
-      <div className="text-xl md:text-3xl font-bold text-white flex items-center gap-0">
-            <span className="text-[#7b5af7]">Virtual</span><span className="text-black">City</span>
-        </div>
-
-        {/* Navigation Links */}
-        <div className="hidden md:flex space-x-8 text-gray-700 font-medium">
-          <a href="/shop" className="flex items-center space-x-1 hover:text-[#5A31F5]">
-             <span>Dashboard</span>
-          </a>
-          <a href="/shop" className="flex items-center space-x-1 hover:text-[#5A31F5]">
-             <span>Shop</span>
-          </a>
-          <a href="/orders" className="flex items-center space-x-1 hover:text-[#5A31F5]">
-             <span>Customer</span>
-          </a>
-          <a href="/reports" className="flex items-center space-x-1 hover:text-[#5A31F5]">
-             <span>Order</span>
-          </a>
-          
-        </div>
-      
-
-      {/* Middle Section: Search Bar */}
-      <div className="relative w-80 hidden md:block">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="w-full pr-10 pl-3 py-2  border border-black rounded-md focus:ring-[#5A31F5] focus:border-[#5A31F5]"
-          id="searchInput"
-        />
-        {/* Search Icon Button */}
-  <button 
-    onClick={() => {
-      const searchValue = (document.getElementById("searchInput") as HTMLInputElement).value;
-      console.log("Searching for:", searchValue);
-      // You can replace this console.log with an actual search function
-    }} 
-    className="absolute right-3 top-3 text-black-400 cursor-pointer"
-  >
-    <FiSearch size={18} />
-  </button>
+    <nav className="bg-white shadow-md px-4 md:px-6 py-4 flex justify-between items-center relative z-50">
+      {/* Logo */}
+      <div className="text-xl md:text-3xl font-bold flex items-center gap-0">
+        <span className="text-[#7b5af7]">Virtual</span><span className="text-black">City</span>
       </div>
 
-      {/* Navigation Links */}
-      <div className="hidden md:flex space-x-8 text-gray-700 font-medium">
-          <a href="/reports" className="flex items-center space-x-1 hover:text-[#5A31F5]">
-             <span>Reports</span>
+      {/* Desktop Navigation */}
+      <div className="hidden md:flex space-x-16 text-gray-700 font-semibold">
+        {menuLinks.map(link => (
+          <a key={link.label} href={link.path} className={`hover:text-[#5A31F5] ${
+            pathname.startsWith(link.path) ? "text-[#5A31F5]" : ""
+          }`}>
+            {link.label}
           </a>
-          <a href="/coupuns" className="flex items-center space-x-1 hover:text-[#5A31F5]">
-             <span>Coupuns</span>
-          </a>
-          <a href="/delivery" className="flex items-center space-x-1 hover:text-[#5A31F5]">
-             <span>Delivery</span>
-          </a>
-          <a href="/help" className="flex items-center space-x-1 hover:text-[#5A31F5]">
-             <span>Help & Support</span>
-          </a>
-          
-        </div>
+        ))}
+      </div>
 
-      {/* Right Section: Profile */}
+      {/* Profile & Hamburger */}
       <div className="flex items-center space-x-4">
+        {/* Profile Picture */}
         {profilePhoto ? (
           <Image
             src={profilePhoto}
@@ -95,9 +64,34 @@ const SellerNav = () => {
         ) : (
           <FiUser size={30} className="text-gray-600" />
         )}
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden focus:outline-none"
+        >
+          {mobileMenuOpen ? <FiX size={26} /> : <FiMenu size={26} />}
+        </button>
       </div>
+
+      {/* Mobile Dropdown */}
+      {mobileMenuOpen && (
+        <div className="absolute top-[100%] left-0 w-full bg-white border-t shadow-md flex flex-col space-y-3 px-6 py-4 md:hidden">
+          {menuLinks.map(link => (
+            <a
+              key={link.label}
+              href={link.path}
+              className={`text-gray-700 hover:text-[#5A31F5] ${
+                pathname.startsWith(link.path) ? "text-[#5A31F5]" : ""
+              }`}
+              onClick={() => setMobileMenuOpen(false)} // close on click
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      )}
     </nav>
-    
   );
 };
 
