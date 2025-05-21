@@ -1,4 +1,5 @@
 
+
 // "use client";
 
 // import { useState, useEffect } from "react";
@@ -10,23 +11,14 @@
 //   const [currentIndex, setCurrentIndex] = useState<number>(1);
 
 //   useEffect(() => {
-//     // Fetch banners dynamically (Replace with API call if needed)
-//     setBanners([
-//       "/b1.jpg",
-//       "/b6.jpg",
-//       "/b4.jpg",
-//       "/b3.jpg",
-//       "/b2.jpg",
-//     ]);
+//     setBanners(["/b1.jpg", "/b6.jpg", "/b4.jpg", "/b3.jpg", "/b2.jpg"]);
 //   }, []);
 
-// //   // Auto-slide effect every 5 seconds
 //   useEffect(() => {
 //     const interval = setInterval(() => {
 //       nextBanner();
 //     }, 5000);
-
-//     return () => clearInterval(interval); // Cleanup interval on unmount
+//     return () => clearInterval(interval);
 //   }, [currentIndex]);
 
 //   const nextBanner = () => {
@@ -39,8 +31,7 @@
 
 //   return (
 //     <div className="relative w-full flex flex-col items-center mt-6">
-//       {/* Banner Container */}
-//       <div className="relative w-full max-w-4xl h-[350px] flex justify-center items-center overflow-hidden">
+//       <div className="relative w-full max-w-4xl h-[300px] md:h-[400px] flex justify-center items-center overflow-hidden">
 //         {banners.length > 0 &&
 //           banners.map((banner, index) => {
 //             let position = index - currentIndex;
@@ -54,19 +45,19 @@
 //                   position === 0
 //                     ? "scale-110 z-20 opacity-100"
 //                     : position === -1 || position === 1
-//                     ? "scale-90 z-10 opacity-100" // Side banners
-//                     : "scale-75 z-0 opacity-0" // Hide farthest banners
+//                     ? "scale-90 z-10 opacity-100"
+//                     : "scale-75 z-0 opacity-0"
 //                 }`}
 //                 style={{
 //                   transform: `translateX(${position * 40}%)`,
-//                   clipPath: position === 0 ? "none" : "inset(0 10% 0 10%)", // Clip side banners
+//                   clipPath: position === 0 ? "none" : "inset(0 10% 0 10%)",
 //                 }}
 //               >
 //                 <Image
 //                   src={banner}
 //                   alt={`Banner ${index + 1}`}
 //                   width={500}
-//                   height={200}
+//                   height={250}
 //                   className="rounded-2xl shadow-md object-cover"
 //                   unoptimized
 //                 />
@@ -78,15 +69,15 @@
 //       {/* Navigation Arrows */}
 //       <button
 //         onClick={prevBanner}
-//         className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white bg-black/50 rounded-full p-2 hover:bg-black transition hidden md:block"
+//         className="absolute left-4 md:left-6 top-1/2 transform -translate-y-1/2 text-white bg-black/50 rounded-full p-2 hover:bg-black transition"
 //       >
-//         <FiChevronLeft size={32} />
+//         <FiChevronLeft size={24} />
 //       </button>
 //       <button
 //         onClick={nextBanner}
-//         className="absolute right-6 top-1/2 transform -translate-y-1/2 text-white bg-black/50 rounded-full p-2 hover:bg-black transition hidden md:block"
+//         className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 text-white bg-black/50 rounded-full p-2 hover:bg-black transition"
 //       >
-//         <FiChevronRight size={32} />
+//         <FiChevronRight size={24} />
 //       </button>
 
 //       {/* Dots Indicator */}
@@ -115,9 +106,10 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const SellerBanner = () => {
   const [banners, setBanners] = useState<string[]>([]);
-  const [currentIndex, setCurrentIndex] = useState<number>(1);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   useEffect(() => {
+    // For demo, replace with real banners from props or API
     setBanners(["/b1.jpg", "/b6.jpg", "/b4.jpg", "/b3.jpg", "/b2.jpg"]);
   }, []);
 
@@ -126,7 +118,7 @@ const SellerBanner = () => {
       nextBanner();
     }, 5000);
     return () => clearInterval(interval);
-  }, [currentIndex]);
+  }, [currentIndex, banners]);
 
   const nextBanner = () => {
     setCurrentIndex((prev) => (prev === banners.length - 1 ? 0 : prev + 1));
@@ -136,41 +128,49 @@ const SellerBanner = () => {
     setCurrentIndex((prev) => (prev === 0 ? banners.length - 1 : prev - 1));
   };
 
+  // If no banners, show a placeholder
+  if (!banners || banners.length === 0) {
+    return (
+      <div className="w-full h-64 bg-gray-200 flex items-center justify-center text-gray-500 rounded-2xl">
+        No banners available
+      </div>
+    );
+  }
+
   return (
     <div className="relative w-full flex flex-col items-center mt-6">
-      <div className="relative w-full max-w-4xl h-[300px] md:h-[400px] flex justify-center items-center overflow-hidden">
-        {banners.length > 0 &&
-          banners.map((banner, index) => {
-            let position = index - currentIndex;
-            if (position < -2) position += banners.length;
-            if (position > 2) position -= banners.length;
+      <div className="relative w-full max-w-4xl h-[300px] md:h-[400px] flex justify-center items-center overflow-hidden rounded-2xl">
+        {banners.map((banner, index) => {
+          let position = index - currentIndex;
+          if (position < -2) position += banners.length;
+          if (position > 2) position -= banners.length;
 
-            return (
-              <div
-                key={index}
-                className={`absolute transition-all duration-700 ease-in-out ${
-                  position === 0
-                    ? "scale-110 z-20 opacity-100"
-                    : position === -1 || position === 1
-                    ? "scale-90 z-10 opacity-100"
-                    : "scale-75 z-0 opacity-0"
-                }`}
-                style={{
-                  transform: `translateX(${position * 40}%)`,
-                  clipPath: position === 0 ? "none" : "inset(0 10% 0 10%)",
-                }}
-              >
-                <Image
-                  src={banner}
-                  alt={`Banner ${index + 1}`}
-                  width={500}
-                  height={250}
-                  className="rounded-2xl shadow-md object-cover"
-                  unoptimized
-                />
-              </div>
-            );
-          })}
+          return (
+            <div
+              key={index}
+              className={`absolute transition-all duration-700 ease-in-out ${
+                position === 0
+                  ? "scale-110 z-20 opacity-100"
+                  : position === -1 || position === 1
+                  ? "scale-90 z-10 opacity-100"
+                  : "scale-75 z-0 opacity-0"
+              }`}
+              style={{
+                transform: `translateX(${position * 40}%)`,
+                clipPath: position === 0 ? "none" : "inset(0 10% 0 10%)",
+              }}
+            >
+              <Image
+                src={banner}
+                alt={`Banner ${index + 1}`}
+                width={500}
+                height={250}
+                className="rounded-2xl shadow-md object-cover"
+                unoptimized
+              />
+            </div>
+          );
+        })}
       </div>
 
       {/* Navigation Arrows */}

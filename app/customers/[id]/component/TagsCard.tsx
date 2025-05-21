@@ -89,6 +89,22 @@ const TagsCard = ({ tags, onAddTag, onRemoveTag }: TagsCardProps) => {
     <div className="bg-white rounded-lg shadow-lg p-6 w-full hover:shadow-xl transition-shadow duration-300">
       <h3 className="text-xl font-bold text-gray-900 mb-6">Tags</h3>
 
+      <div className="flex gap-2 mb-3">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Add new tag"
+          className="border border-gray-300 rounded-md px-3 py-1 text-sm w-full"
+        />
+        <button
+          onClick={handleAdd}
+          className="bg-[#5A31F5] text-white px-3 py-1 rounded-md text-sm hover:bg-[#4a26d4]"
+        >
+          Add
+        </button>
+      </div>
+
       <div className="flex flex-wrap gap-2 mb-3">
         {tags.length === 0 && (
           <p className="text-sm text-gray-400 italic">No tags assigned.</p>
@@ -109,21 +125,7 @@ const TagsCard = ({ tags, onAddTag, onRemoveTag }: TagsCardProps) => {
         ))}
       </div>
 
-      <div className="flex gap-2">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Add new tag"
-          className="border border-gray-300 rounded-md px-3 py-1 text-sm w-full"
-        />
-        <button
-          onClick={handleAdd}
-          className="bg-[#5A31F5] text-white px-3 py-1 rounded-md text-sm hover:bg-[#4a26d4]"
-        >
-          Add
-        </button>
-      </div>
+      
     </div>
   );
 };

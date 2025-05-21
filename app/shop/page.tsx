@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import SellerNav from "@/app/component/layout/SellerNav";
 import SellerRating from "@/app/shop/shop-page/Sellerrating";
 import SellerBanner from "@/app/shop/shop-page/sellerBanner";
@@ -8,6 +9,37 @@ import ProductList from "@/app/shop/shop-page/ProductList";
 import Footer from "@/app/component/layout/FullFooter";
 
 const Page = () => {
+
+const [shopDetails, setShopDetails] = useState<any>(null); // This will hold the shop details
+
+  // Fetch shop details from the backend
+  useEffect(() => {
+    const fetchShopDetails = async () => {
+      try {
+        const response = await fetch("/api/shops/details", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming token is stored in localStorage
+          },
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          setShopDetails(data); // Set the data to state
+        } else {
+          console.error("Failed to fetch shop details");
+        }
+      } catch (error) {
+        console.error("Error fetching shop details", error);
+      }
+    };
+
+    fetchShopDetails();
+  }, []);
+
+  if (!shopDetails) {
+    return <div>Loading...</div>; // Show loading text until the shop data is fetched
+  }
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Seller Navigation Bar */}
@@ -16,14 +48,13 @@ const Page = () => {
       {/* Shop Information Section */}
       <div className="container mx-auto p-6">
         <SellerRating
-          shop={{
-            name: "Nike",
-            logo: "/loogo.jpg",
-            description:
-              "Welcome to Nike – Elevate Your Game with Premium Athletic Wear. At Nike, we believe in the power of sport to inspire and transform lives. Our shop offers a wide range of premium athletic footwear, apparel, and accessories designed to enhance performance and style. Whether you're a professional athlete, a fitness enthusiast, or just love trendy, comfortable sportswear, we have something for you.",
-            rating: 4.5,
-            reviews: 3257,
-            ratingBreakdown: { 5: 70, 4: 50, 3: 30, 2: 10, 1: 5 },
+        shop={{
+          name: shopDetails.shopName,
+            logo: shopDetails.shopImages ? shopDetails.shopImages[0] : "/default-logo.jpg", // Handle missing logo
+            description: shopDetails.description,
+            rating: shopDetails.rating || 0, // Default to 0 if no rating
+            reviews: shopDetails.reviews || 0,
+            ratingBreakdown: shopDetails.ratingBreakdown || { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 }, // Default rating breakdown
           }}
         />
 

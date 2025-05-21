@@ -16,7 +16,6 @@ const CustomerDetailsPage = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [initialNote, setInitialNote] = useState("");
   const [initialTags, setInitialTags] = useState<string[]>([]);
-  const [profilePhotoFile, setProfilePhotoFile] = useState<File | null>(null);
 
   useEffect(() => {
     if (id) {
@@ -37,7 +36,6 @@ const CustomerDetailsPage = () => {
             { id: "#76543E", placedAt: "2024-04-12T08:00:00", status: "Completed", amount: 45000 },
             { id: "#51323C", placedAt: "2024-04-10T16:12:00", status: "Completed", amount: 150 },
           ],
-          
         tags: ["Vip Customer", "Europe"],
         orderCount: 5,
       });
@@ -53,29 +51,17 @@ const CustomerDetailsPage = () => {
   const handleRemoveTag = (tag: string) => setTags(tags.filter(t => t !== tag));
 
   const handleCancel = () => {
+    // Reset to initial values on cancel
     setNote(initialNote);
     setTags(initialTags);
   };
 
   const handleSave = () => {
-    // Send note/tags to backend here
+    // Save note/tags to backend
     setInitialNote(note);
     setInitialTags(tags);
     alert("Customer details saved ✅");
   };
-
-  const handleProfilePhotoChange = (file: File) => {
-    setProfilePhotoFile(file);
-  };
-  
-
-//   const handleNoteChange = (newNote: string) => {
-//     setCustomer({ ...customer, note: newNote });
-//     // You can send this note back to DB using PUT if needed
-//   };
-
-//   const handleAddTag = (tag: string) => setTags([...tags, tag]);
-//   const handleRemoveTag = (tag: string) => setTags(tags.filter(t => t !== tag));
 
   if (!customer) return <p className="text-center p-10">Loading...</p>;
 
@@ -87,37 +73,36 @@ const CustomerDetailsPage = () => {
         <h1 className="text-2xl font-bold mb-4">Customer Details</h1>
 
         {/* Top Grid */}
-<div className="grid md:grid-cols-3 gap-6">
-  {/* Left (2/3 width) */}
-  <div className="md:col-span-2">
-  <ProfileCard
-        customer={{ ...customer, profilePhoto: customer.profilePhoto }}
-        onNoteChange={handleNoteChange}
-        onProfilePhotoChange={handleProfilePhotoChange}
-      />
-  </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {/* Left (2/3 width) */}
+          <div className="md:col-span-2">
+            <ProfileCard
+              customer={{ ...customer, profilePhoto: customer.profilePhoto }}
+              onNoteChange={handleNoteChange}
+            />
+          </div>
 
-  {/* Right (1/3 width) */}
-  <div>
-    <OverviewCard customer={customer} />
-  </div>
-</div>
+          {/* Right (1/3 width) */}
+          <div>
+            <OverviewCard customer={customer} />
+          </div>
+        </div>
 
-{/* Bottom Grid */}
-<div className="grid md:grid-cols-3 gap-6 mt-6">
-  {/* Left (2/3 width) */}
-  <div className="md:col-span-2">
-    <OrdersTable orders={customer.orders || []} />
-  </div>
+        {/* Bottom Grid */}
+        <div className="grid md:grid-cols-3 gap-6 mt-6">
+          {/* Left (2/3 width) */}
+          <div className="md:col-span-2">
+            <OrdersTable orders={customer.orders || []} />
+          </div>
 
-  {/* Right (1/3 width) */}
-  <div>
-    <TagsCard tags={tags} onAddTag={handleAddTag} onRemoveTag={handleRemoveTag} />
-  </div>
-</div>
+          {/* Right (1/3 width) */}
+          <div>
+            <TagsCard tags={tags} onAddTag={handleAddTag} onRemoveTag={handleRemoveTag} />
+          </div>
+        </div>
 
-   {/* Action Buttons */}
-   <div className="flex justify-end gap-4 mt-8">
+        {/* Action Buttons */}
+        <div className="flex justify-end gap-4 mt-8">
           <button
             onClick={handleCancel}
             className="px-5 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100"

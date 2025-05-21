@@ -76,8 +76,8 @@ const OrdersTable = ({ orders }: OrdersTableProps) => {
       {orders.length === 0 ? (
         <p className="text-sm text-gray-500">No accepted orders available.</p>
       ) : (
-        <table className="min-w-full text-sm text-left">
-          <thead className="text-gray-500 border-b text-xs">
+        <table className="min-w-full text-sm text-center">
+          <thead className="text-gray-500 border-b text-medium">
             <tr>
               <th className="px-4 py-2">Order ID</th>
               <th className="px-4 py-2">Placed Date & Time</th>
@@ -88,8 +88,8 @@ const OrdersTable = ({ orders }: OrdersTableProps) => {
           <tbody>
             {orders.map((order) => (
               <tr key={order.id} className="border-b hover:bg-gray-50">
-                <td className="px-4 py-3 text-[#5A31F5] font-medium">{order.id}</td>
-                <td className="px-4 py-3 text-gray-700">
+                <td className="px-4 py-3 text-black font-medium">{order.id}</td>
+                <td className="px-4 py-3 text-black">
                   {new Date(order.placedAt).toLocaleString("en-GB", {
                     dateStyle: "medium",
                     timeStyle: "short",
@@ -97,10 +97,10 @@ const OrdersTable = ({ orders }: OrdersTableProps) => {
                 </td>
                 <td className="px-4 py-3">
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    className={`px-2 py-1 rounded-full text-medium font-medium ${
                       order.status === "Completed"
-                        ? "bg-green-100 text-green-600"
-                        : "bg-yellow-100 text-yellow-600"
+                        ? " text-green-600"
+                        : " text-blue-600"
                     }`}
                   >
                     {order.status}
