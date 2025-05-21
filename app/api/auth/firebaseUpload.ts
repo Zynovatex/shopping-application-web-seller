@@ -9,5 +9,7 @@ export const uploadFileToFirebase = async (file: File, folderPath: string) => {
   await uploadBytes(fileRef, file);
   // Retrieve the download URL
   const downloadURL = await getDownloadURL(fileRef);
+  console.log(downloadURL);
   return downloadURL;
+  
 };
