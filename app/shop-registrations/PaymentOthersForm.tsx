@@ -18,7 +18,7 @@ const PaymentOthersForm: React.FC<PaymentOthersFormProps> = ({
   mobilePayment,
   additionalPhotos,
   onChange,
-  onSave,
+  onSave, 
   onBack,
 }) => {
   const [photos, setPhotos] = useState<File[]>([]);
@@ -47,9 +47,6 @@ const PaymentOthersForm: React.FC<PaymentOthersFormProps> = ({
         {/* Top Tab Navigation */}
         <div className="flex items-center space-x-8 border-b border-gray-300 mb-8">
           <button className="text-gray-500 font-medium pb-2">Profile</button>
-          <button className="text-gray-500 font-medium pb-2">
-            Shop Details
-          </button>
           <button className="text-gray-500 font-medium pb-2">
             Registration
           </button>

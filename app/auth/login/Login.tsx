@@ -17,48 +17,32 @@ function Login() {
   // Handle login submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Prepare login data from the form fields
+  
     const loginData: LoginData = { email, password };
-
+  
     try {
-      // Call the API to log in the user
       const result = await loginUser(loginData);
-
-      // Assume result contains a token property
-      const token = result;
-
-      // Save the token in localStorage for later use
-      localStorage.setItem("authToken", token);
-
-      // Optionally, you could also store it in cookies using a library like js-cookie if desired
-      // Example: Cookies.set("authToken", token);
-
+  
+      // ✅ Extract the token from result
+      const token = result.token;
+  
+      // ✅ Store token in localStorage
+      localStorage.setItem("token", result);
+  
       setSuccessMessage("Login successful!");
       setError(null);
       console.log("Login result:", result);
-
-      // Redirect upon successful login
-      router.push("/");
+  
+      // ✅ Redirect to Seller Landing Page
+      router.push("/landingPage"); // or your actual landing route
     } catch (err: any) {
-      // Display error message if login fails
       setError(
         err.response?.data?.message || "Login failed. Please try again."
       );
       setSuccessMessage(null);
     }
   };
-
-  // Redirect to the Forgot Password page.
-  const redirectToForgotPassword = () => {
-    router.push("/auth/forgot-password");
-  };
-
-  // Optionally, a button to redirect to a registration page.
-  const redirectToRegister = () => {
-    router.push("/auth/register");
-  };
-
+  
   // Optional: Basic email validation (naive approach).
   const isValidEmail = (email: string): boolean => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
