@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "next/link"
@@ -83,6 +82,7 @@ const SellerLandingPage: React.FC = () => {
     { icon: <Home size={24} />, label: "Dashboard", id: "dashboard" },
     { icon: <ShoppingBag size={24} />, label: "Products", id: "products" },
     { icon: <Package size={24} />, label: "Orders", id: "orders" },
+    { icon: <Settings size={24} />, label: "Customers", id: "customer" },
     { icon: <CreditCard size={24} />, label: "Payments", id: "payments" },
     { icon: <BarChart2 size={24} />, label: "Analytics", id: "analytics" }, 
     { icon: <User size={24} />, label: "Profile", id: "profile" },
@@ -245,7 +245,9 @@ const SellerLandingPage: React.FC = () => {
                   <p className="text-sm text-gray-500">Add your business details and contact information</p>
                 </div>
               </div>
-              <button className="md:ml-auto bg-yellow-100 text-yellow-700 px-3 py-1 rounded-md text-sm transition-all duration-200 hover:bg-yellow-200 hover:shadow hover:scale-105">
+              <button 
+              onClick={() => router.push("/shop-registrations")}
+              className="md:ml-auto bg-yellow-100 text-yellow-700 px-3 py-1 rounded-md text-sm transition-all duration-200 hover:bg-yellow-200 hover:shadow hover:scale-105">
                 Complete
               </button>
             </div>
@@ -278,7 +280,9 @@ const SellerLandingPage: React.FC = () => {
                   <p className="text-sm text-gray-500">Connect your bank account to receive payments</p>
                 </div>
               </div>
-              <button className="md:ml-auto bg-indigo-600 text-white px-3 py-1 rounded-md text-sm transition-all duration-200 hover:bg-indigo-700 hover:shadow hover:scale-105">
+              <button 
+              onClick={() => router.push("/CollectBankDetails")}
+              className="md:ml-auto bg-indigo-600 text-white px-3 py-1 rounded-md text-sm transition-all duration-200 hover:bg-indigo-700 hover:shadow hover:scale-105">
                 Set Up
               </button>
             </div>
