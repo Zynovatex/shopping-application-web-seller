@@ -5,7 +5,7 @@ import ShopDetailsForm from "./ShopDetailsForm";
 import RegistrationForm from "./RegistrationForm";
 import PaymentOthersForm from "./PaymentOthersForm";
 import { ShopDTO, registerShop } from "../api/auth/shopRegistration";
-import Footer from "../component/layout/Footer";
+import Footer from "../component/layout/FullFooter";
 
 const ShopRegistrationPage: React.FC = () => {
   const [step, setStep] = useState(1);

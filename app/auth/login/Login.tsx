@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 // --- NEW: Import the Footer component ---
-import Footer from "@/app/component/layout/Footer";
+import Footer from "@/app/component/layout/FullFooter";
 
 function Login() {
   const router = useRouter();
