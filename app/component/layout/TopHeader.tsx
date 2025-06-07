@@ -1,3 +1,15 @@
+// DBMS
+
+// Query Optimization
+// Concurrency Controll
+// Stored Procedure
+// View
+// Dml Operations
+// Triggers
+// Indexes
+// Transaction
+// Backup & Recovery
+
 "use client";
 import { useState } from "react";
 import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";

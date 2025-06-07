@@ -10,7 +10,7 @@ interface ProductDetail {
   name: string;
   price: number;
   quantity: number;
-  details: Record<string, string>; // dynamic key-value details, e.g., { Color: "Red", Size: "M", GiftWrap: "Yes" }
+  details: Record<string, string>; 
 }
 
 interface OrderType {
@@ -123,7 +123,7 @@ const mockOrders: OrderType[] = [
       },
     ],
   },
-  // add more mock orders as needed
+  
 ];
 
 export default function OrdersPage() {
@@ -338,7 +338,10 @@ export default function OrdersPage() {
                 >
                   Deliver
                 </button>
-              )}
+                
+              )
+              
+              }
             </div>
           </div>
         )}

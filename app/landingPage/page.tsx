@@ -75,12 +75,12 @@ const SellerLandingPage: React.FC = () => {
 
   const navItems: NavItem[] = [
     { icon: <Home size={24} />, label: "Dashboard", id: "dashboard" },
-    { icon: <ShoppingBag size={24} />, label: "Products", id: "products" },
-    { icon: <Package size={24} />, label: "Orders", id: "orders" },
-    { icon: <Settings size={24} />, label: "Customers", id: "customer" },
+    { icon: <ShoppingBag size={24} />, label: "Products", id: "products", link: "/products" },
+    { icon: <Package size={24} />, label: "Orders", id: "orders", link: "/orders" },
+    { icon: <Settings size={24} />, label: "Customers", id: "customers", link: "/customers" },
     { icon: <CreditCard size={24} />, label: "Payments", id: "payments" },
     { icon: <BarChart2 size={24} />, label: "Analytics", id: "analytics" }, 
-    { icon: <User size={24} />, label: "Profile", id: "profile" },
+    { icon: <User size={24} />, label: "Profile", id: "profile", link: "/shop" },
     { icon: <Settings size={24} />, label: "Settings", id: "settings" }
   ];
 

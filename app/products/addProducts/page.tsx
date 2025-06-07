@@ -1,6 +1,6 @@
 // app/(dashboard)/products/create/page.tsx
 import React from "react";
-import ProductForm from "../component/ProductForm";
+import ProductForm from "../../component/ProductForm";
 
 const CreateProductPage = () => {
   return (

@@ -10,6 +10,7 @@ export default function DeliveryPage() {
       <main className="flex-grow container mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold text-[#5A31F5]">Delivery</h1>
         <p className="mt-4 text-gray-700">This is where Delivery will appear.</p>
+
       </main>
       <Footer />
     </div>

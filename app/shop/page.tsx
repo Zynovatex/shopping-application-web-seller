@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -8,7 +7,6 @@ import {
   FiDownload,
   FiPlus,
   FiEdit,
-  FiTrash,
   FiSearch,
   FiChevronLeft,
   FiChevronRight,
@@ -18,55 +16,251 @@ import { FaStar } from "react-icons/fa";
 const Page = () => {
   const router = useRouter();
 
-  const [shopDetails, setShopDetails] = useState<any>(null);
+  // Demo static shop details
+  const demoShopDetails = {
+    shopName: "NIKE",
+    shopImages: [
+      "/loogo.jpg",
+      "/b1.jpg",
+      "/b2.jpg",
+      "/b3.jpg",
+    ],
+    description: "Nike is a leading global brand specializing in athletic footwear, apparel, and accessories. Known for its innovative designs and high-quality products, Nike offers a wide range of sportswear for athletes and casual wearers alike. The shop provides the latest collections of running shoes, training gear, and stylish sportswear, empowering customers to perform at their best while staying trendy",
+    rating: 4.5,
+    reviews: 123,
+    ratingBreakdown: { 5: 70, 4: 20, 3: 7, 2: 2, 1: 1 },
+    banners: ["/b1.jpg", "/b2.jpg", "/b3.jpg", "/b4.jpg"],
+  };
 
-  // Fetch shop details from backend
-  useEffect(() => {
-    const fetchShopDetails = async () => {
-      try {
-        const response = await fetch("/api/shops/details", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+  // Demo products list
+  const demoProducts = [
+    {
+      id: 1,
+      name: "T-Shirt",
+      category: "Clothes",
+      image: "/tshirt_2.jpeg",
+      inventory: 150,
+      inStock: true,
+      color: "Red",
+      price: "1200 LKR",
+      rating: 4.8,
+      votes: 230,
+      selected: false,
+    },
+    {
+      id: 2,
+      name: "T-Shirt",
+      category: "Sportswear",
+      image: "/tshirt.jpeg",
+      inventory: 50,
+      inStock: true,
+      color: "White",
+      price: "4500 LKR",
+      rating: 4.2,
+      votes: 89,
+      selected: false,
+    },
+    {
+      id: 3,
+      name: "Sneakers",
+      category: "Shoes",
+      image: "/sneakers.jpeg",
+      inventory: 0,
+      inStock: false,
+      color: "Brown",
+      price: "8000 LKR",
+      rating: 3.9,
+      votes: 34,
+      selected: false,
+    },
+    {
+    id: 4,
+      name: "T-Shirt",
+      category: "Clothes",
+      image: "/tshirt_2.jpeg",
+      inventory: 150,
+      inStock: true,
+      color: "Red",
+      price: "1200 LKR",
+      rating: 4.8,
+      votes: 230,
+      selected: false,
+    },
+    {
+      id: 5,
+      name: "T-Shirt",
+      category: "Sportswear",
+      image: "/tshirt.jpeg",
+      inventory: 50,
+      inStock: true,
+      color: "White",
+      price: "4500 LKR",
+      rating: 4.2,
+      votes: 89,
+      selected: false,
+    },
+    {
+      id: 6,
+      name: "Sneakers",
+      category: "Shoes",
+      image: "/sneakers.jpeg",
+      inventory: 0,
+      inStock: false,
+      color: "Brown",
+      price: "8000 LKR",
+      rating: 3.9,
+      votes: 34,
+      selected: false,
+    },
+    {
+      id: 7,
+      name: "Sneakers",
+      category: "Shoes",
+      image: "/sneakers.jpeg",
+      inventory: 0,
+      inStock: false,
+      color: "Brown",
+      price: "8000 LKR",
+      rating: 3.9,
+      votes: 34,
+      selected: false,
+    },
+     {
+      id: 8,
+      name: "T-Shirt",
+      category: "Clothes",
+      image: "/tshirt_2.jpeg",
+      inventory: 150,
+      inStock: true,
+      color: "Red",
+      price: "1200 LKR",
+      rating: 4.8,
+      votes: 230,
+      selected: false,
+    },
+    {
+      id: 9,
+      name: "T-Shirt",
+      category: "Sportswear",
+      image: "/tshirt.jpeg",
+      inventory: 50,
+      inStock: true,
+      color: "White",
+      price: "4500 LKR",
+      rating: 4.2,
+      votes: 89,
+      selected: false,
+    },
+    {
+      id: 10,
+      name: "Sneakers",
+      category: "Shoes",
+      image: "/sneakers.jpeg",
+      inventory: 0,
+      inStock: false,
+      color: "Brown",
+      price: "8000 LKR",
+      rating: 3.9,
+      votes: 34,
+      selected: false,
+    },
+    {
+    id: 11,
+      name: "T-Shirt",
+      category: "Clothes",
+      image: "/tshirt_2.jpeg",
+      inventory: 150,
+      inStock: true,
+      color: "Red",
+      price: "1200 LKR",
+      rating: 4.8,
+      votes: 230,
+      selected: false,
+    },
+    {
+      id: 12,
+      name: "T-Shirt",
+      category: "Sportswear",
+      image: "/tshirt.jpeg",
+      inventory: 50,
+      inStock: true,
+      color: "White",
+      price: "4500 LKR",
+      rating: 4.2,
+      votes: 89,
+      selected: false,
+    },
+    {
+      id: 13,
+      name: "Sneakers",
+      category: "Shoes",
+      image: "/sneakers.jpeg",
+      inventory: 0,
+      inStock: false,
+      color: "Brown",
+      price: "8000 LKR",
+      rating: 3.9,
+      votes: 34,
+      selected: false,
+    },
+    {
+      id: 14,
+      name: "Sneakers",
+      category: "Shoes",
+      image: "/sneakers.jpeg",
+      inventory: 0,
+      inStock: false,
+      color: "Brown",
+      price: "8000 LKR",
+      rating: 3.9,
+      votes: 34,
+      selected: false,
+    },
+  ];
 
-        if (response.ok) {
-          const data = await response.json();
-          setShopDetails(data);
-        } else {
-          console.error("Failed to fetch shop details");
-        }
-      } catch (error) {
-        console.error("Error fetching shop details", error);
-      }
-    };
+  // States for pagination and search (with demo data)
+  const [products, setProducts] = useState(demoProducts);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 10;
 
-    fetchShopDetails();
-  }, []);
-
-  if (!shopDetails) {
-    return <div>Loading...</div>;
-  }
-
-  // --- SellerNav Component ---
-  const SellerNav = () => (
-    <nav className="bg-white shadow-md p-4 sticky top-0 z-30">
-      <div className="container mx-auto flex justify-between items-center">
-        <h1 className="font-bold text-xl text-[#5A31F5] cursor-pointer" onClick={() => router.push("/")}>
-          Seller Dashboard
-        </h1>
-        {/* Add more nav items if needed */}
-      </div>
-    </nav>
+  // Filter products based on search query
+  const filteredProducts = products.filter(
+    (product) =>
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // --- ShopRating Component ---
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const displayedProducts = filteredProducts.slice(
+    (currentPage - 1) * productsPerPage,
+    currentPage * productsPerPage
+  );
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  const getPageNumbers = () => {
+    if (totalPages <= 10) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    } else {
+      const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "...", totalPages];
+      if (currentPage > 10 && currentPage < totalPages - 2) {
+        pages.splice(10, 1, currentPage - 1, currentPage, currentPage + 1, "...");
+      }
+      return pages;
+    }
+  };
+
+  // SellerRating component
   const SellerRating = ({ shop }: { shop: any }) => (
     <div className="w-full bg-white shadow-lg rounded-lg p-6 flex flex-col lg:flex-row items-center text-center lg:text-left gap-6">
       <div className="w-full lg:w-1/3 flex justify-center">
         <Image
-          src={shop.logo || "/default-logo.jpg"}
+          src={shop.shopImages[0] || "/default-logo.jpg"}
           alt="Shop Logo"
           width={200}
           height={200}
@@ -78,7 +272,7 @@ const Page = () => {
       <div className="w-full lg:w-2/3 space-y-4">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <h2 className="text-3xl sm:text-4xl md:text-5xl text-black font-bold">
-            {shop.name} <span className="text-2xl md:text-4xl">®</span>
+            {shop.shopName} <span className="text-2xl md:text-4xl">®</span>
           </h2>
           <button
             onClick={() => router.push("/shop/EditShopDetails")}
@@ -94,7 +288,9 @@ const Page = () => {
         <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-6">
           <div className="flex flex-col items-center">
             <div className="flex items-center gap-2">
-              <span className="text-4xl sm:text-5xl font-bold text-black">{shop.rating || 0}</span>
+              <span className="text-4xl sm:text-5xl font-bold text-black">
+                {shop.rating || 0}
+              </span>
               <FaStar className="text-[#5A31F5]" size={28} />
             </div>
             <span className="mt-2 bg-black text-white text-xs sm:text-sm px-3 py-1 rounded-md">
@@ -121,24 +317,19 @@ const Page = () => {
     </div>
   );
 
-  // --- ShopBanner Component ---
+  // SellerBanner component
   const SellerBanner = () => {
-    const [banners, setBanners] = useState<string[]>([]);
+    const [banners, setBanners] = useState<string[]>(demoShopDetails.banners);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
 
     useEffect(() => {
-      // Use shopDetails banners if available, else fallback
-      setBanners(shopDetails.banners && shopDetails.banners.length > 0
-        ? shopDetails.banners
-        : ["/b1.jpg", "/b6.jpg", "/b4.jpg", "/b3.jpg", "/b2.jpg"]);
-    }, [shopDetails]);
-
-    useEffect(() => {
       const interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev === banners.length - 1 ? 0 : prev + 1));
+        setCurrentIndex((prev) =>
+          prev === banners.length - 1 ? 0 : prev + 1
+        );
       }, 5000);
       return () => clearInterval(interval);
-    }, [currentIndex, banners]);
+    }, [banners]);
 
     if (!banners || banners.length === 0) {
       return (
@@ -220,13 +411,19 @@ const Page = () => {
     );
   };
 
-  // --- ProductHeader Component ---
+  
+  const exportProductsToPDF = () => {
+    
+    alert("Export to PDF functionality is not implemented yet.");
+  };
+
+  // ProductHeader component
   const ProductHeader = () => (
     <div className="flex justify-between items-center w-full py-4 px-6">
       <h2 className="text-xl font-bold text-black">Products</h2>
       <div className="flex h-8 space-x-3">
         <button
-          onClick={() => router.push("/app/product/saveProductList")}
+          onClick={exportProductsToPDF}  
           className="flex items-center space-x-2 border border-[#7B5AF7] text-[#7B5AF7] px-4 py-2 rounded-md hover:bg-[#7B5AF7] hover:text-white transition"
         >
           <FiDownload size={16} />
@@ -243,220 +440,157 @@ const Page = () => {
     </div>
   );
 
-  // --- ProductList Component ---
-  const ProductList = () => {
-    // Example product state and search state (add these if not already present)
-    const [products, setProducts] = useState<any[]>([
-      // Example product structure; replace with real data or fetch from backend
-      // { id, name, category, image, inventory, inStock, color, price, rating, votes, selected }
-    ]);
-    const [searchQuery, setSearchQuery] = useState<string>("");
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const productsPerPage = 10;
-
-    // Filter products based on search query
-    const filteredProducts = products.filter(
-      (product) =>
-        product.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.category?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    // Pagination logic
-    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-    const displayedProducts = filteredProducts.slice(
-      (currentPage - 1) * productsPerPage,
-      currentPage * productsPerPage
-    );
-
-    const handlePageChange = (page: number) => {
-      if (page >= 1 && page <= totalPages) {
-        setCurrentPage(page);
-      }
-    };
-
-    const getPageNumbers = () => {
-      if (totalPages <= 10) {
-        return Array.from({ length: totalPages }, (_, i) => i + 1);
-      } else {
-        const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "...", totalPages];
-        if (currentPage > 10 && currentPage < totalPages - 2) {
-          pages.splice(10, 1, currentPage - 1, currentPage, currentPage + 1, "...");
-        }
-        return pages;
-      }
-    };
-
-    return (
-      <div className="p-4 sm:p-6 bg-white shadow-md rounded-md mx-auto max-w-7xl mt-6">
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
-          <div className="relative flex items-center border border-gray-300 rounded-md px-3 py-2 w-full sm:w-80">
-            <input
-              type="text"
-              placeholder="Search"
-              className="w-full outline-none text-gray-700 text-sm bg-transparent placeholder-gray-400"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <FiSearch
-              size={18}
-              className="cursor-pointer text-gray-500 hover:text-black"
-            />
-          </div>
-
-          <div className="flex space-x-3 text-[#7B5AF7]">
-            <div className="items-center border border-gray-300 rounded-md px-3 py-2">
-              <FiEdit size={20} className="cursor-pointer hover:text-blue-600" />
-            </div>
-            <div className="items-center border border-gray-300 rounded-md px-3 py-2">
-              <FiTrash size={20} className="cursor-pointer hover:text-red-600" />
-            </div>
-          </div>
+  // ProductList component
+  const ProductList = () => (
+    <div className="p-4 sm:p-6 bg-white shadow-md rounded-md mx-auto max-w-7xl mt-6">
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
+        <div className="relative flex items-center border border-gray-300 rounded-md px-3 py-2 w-full sm:w-80">
+          <input
+            type="text"
+            placeholder="Search"
+            className="w-full outline-none text-gray-700 text-sm bg-transparent placeholder-gray-400"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <FiSearch
+            size={18}
+            className="cursor-pointer text-gray-500 hover:text-black"
+          />
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="text-left text-gray-500 text-medium border-b h-12">
-                <th className="p-3">
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="text-left text-gray-500 text-medium border-b h-12">
+              <th className="p-3">
+                <input
+                  type="checkbox"
+                  className="w-4 h-4 text-white peer-checked:bg-[#5A31F5] border-gray-300 rounded focus:ring-[#4827c4]"
+                />
+              </th>
+              <th className="p-3">Product</th>
+              <th className="p-3">Inventory</th>
+              <th className="p-3">Color</th>
+              <th className="p-3">Price</th>
+              <th className="p-3">Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            {displayedProducts.map((product) => (
+              <tr key={product.id} className="border-b h-14">
+                <td className="p-3">
                   <input
                     type="checkbox"
+                    checked={product.selected}
+                    onChange={() =>
+                      setProducts((prev) =>
+                        prev.map((p) =>
+                          p.id === product.id
+                            ? { ...p, selected: !p.selected }
+                            : p
+                        )
+                      )
+                    }
                     className="w-4 h-4 text-white peer-checked:bg-[#5A31F5] border-gray-300 rounded focus:ring-[#4827c4]"
                   />
-                </th>
-                <th className="p-3">Product</th>
-                <th className="p-3">Inventory</th>
-                <th className="p-3">Color</th>
-                <th className="p-3">Price</th>
-                <th className="p-3">Rating</th>
+                </td>
+                <td className="p-3 flex items-center space-x-3">
+                  <Image
+                    src={product.image || "/default-image.jpg"}
+                    alt={product.name}
+                    width={40}
+                    height={40}
+                    className="rounded-md"
+                  />
+                  <div>
+                    <span className="font-medium text-black">{product.name}</span>
+                    <p className="text-sm text-gray-700">{product.category}</p>
+                  </div>
+                </td>
+                <td className="p-3">
+                  <span
+                    className={
+                      product.inStock
+                        ? "text-black font-medium"
+                        : "text-red-500 font-medium"
+                    }
+                  >
+                    {product.inStock
+                      ? `${product.inventory} in stock`
+                      : "Out of Stock"}
+                  </span>
+                </td>
+                <td className="p-3 text-black">{product.color}</td>
+                <td className="p-3 text-black">{product.price}</td>
+                <td className="p-3 text-gray-900">
+                  {product.rating} ({product.votes} Votes)
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {displayedProducts.map((product) => (
-                <tr key={product.id} className="border-b h-14">
-                  <td className="p-3">
-                    <input
-                      type="checkbox"
-                      checked={product.selected}
-                      onChange={() =>
-                        setProducts((prev) =>
-                          prev.map((p) =>
-                            p.id === product.id
-                              ? { ...p, selected: !p.selected }
-                              : p
-                          )
-                        )
-                      }
-                      className="w-4 h-4 text-white peer-checked:bg-[#5A31F5] border-gray-300 rounded focus:ring-[#4827c4]"
-                    />
-                  </td>
-                  <td className="p-3 flex items-center space-x-3">
-                    <Image
-                      src={product.image || "/default-image.jpg"}
-                      alt={product.name}
-                      width={40}
-                      height={40}
-                      className="rounded-md"
-                    />
-                    <div>
-                      <span className="font-medium text-black">{product.name}</span>
-                      <p className="text-sm text-gray-700">{product.category}</p>
-                    </div>
-                  </td>
-                  <td className="p-3">
-                    <span
-                      className={
-                        product.inStock
-                          ? "text-black font-medium"
-                          : "text-red-500 font-medium"
-                      }
-                    >
-                      {product.inStock
-                        ? `${product.inventory} in stock`
-                        : "Out of Stock"}
-                    </span>
-                  </td>
-                  <td className="p-3 text-black">{product.color}</td>
-                  <td className="p-3 text-black">{product.price}</td>
-                  <td className="p-3 text-gray-900">
-                    {product.rating} ({product.votes} Votes)
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-        <div className="flex flex-col sm:flex-row justify-between items-center mt-6 gap-3">
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className={`p-2 rounded-md ${
-                currentPage === 1
-                  ? "text-gray-200 cursor-not-allowed"
-                  : "text-black"
-              }`}
-            >
-              <FiChevronLeft size={20} />
-            </button>
+      <div className="flex flex-col sm:flex-row justify-between items-center mt-6 gap-3">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`p-2 rounded-md ${
+              currentPage === 1
+                ? "text-gray-200 cursor-not-allowed"
+                : "text-black"
+            }`}
+          >
+            <FiChevronLeft size={20} />
+          </button>
 
-            <div className="flex space-x-2">
-              {getPageNumbers().map((page, index) => (
-                <button
-                  key={index}
-                  onClick={() =>
-                    typeof page === "number" && handlePageChange(page)
-                  }
-                  className={`px-3 py-1 rounded-md ${
-                    currentPage === page
-                      ? "bg-blue-100 text-blue-600 font-bold"
-                      : "text-gray-700 hover:bg-gray-200"
-                  }`}
-                  disabled={page === "..."}
-                >
-                  {page}
-                </button>
-              ))}
-            </div>
-
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className={`p-2 rounded-md ${
-                currentPage === totalPages
-                  ? "text-gray-200 cursor-not-allowed"
-                  : "text-black"
-              }`}
-            >
-              <FiChevronRight size={20} />
-            </button>
+          <div className="flex space-x-2">
+            {getPageNumbers().map((page, index) => (
+              <button
+                key={index}
+                onClick={() =>
+                  typeof page === "number" && handlePageChange(page)
+                }
+                className={`px-3 py-1 rounded-md ${
+                  currentPage === page
+                    ? "bg-blue-100 text-blue-600 font-bold"
+                    : "text-gray-700 hover:bg-gray-200"
+                }`}
+                disabled={page === "..."}
+              >
+                {page}
+              </button>
+            ))}
           </div>
 
-          <span className="text-sm text-gray-500">
-            {filteredProducts.length} Results
-          </span>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`p-2 rounded-md ${
+              currentPage === totalPages
+                ? "text-gray-200 cursor-not-allowed"
+                : "text-black"
+            }`}
+          >
+            <FiChevronRight size={20} />
+          </button>
         </div>
+
+        <span className="text-sm text-gray-500">{filteredProducts.length} Results</span>
       </div>
-    );
-  };
+    </div>
+  );
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Seller Navigation Bar */}
-      <SellerNav />
+    
 
       {/* Shop Information Section */}
       <div className="container mx-auto p-6">
-        <SellerRating
-          shop={{
-            name: shopDetails.shopName,
-            logo: shopDetails.shopImages ? shopDetails.shopImages[0] : "/default-logo.jpg",
-            description: shopDetails.description,
-            rating: shopDetails.rating || 0,
-            reviews: shopDetails.reviews || 0,
-            ratingBreakdown: shopDetails.ratingBreakdown || { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 },
-          }}
-        />
+        <SellerRating shop={demoShopDetails} />
 
         {/* Banner Section */}
         <div className="mt-8">
@@ -470,8 +604,6 @@ const Page = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      {/* Assuming you want Footer - if you want it inline too, let me know */}
     </div>
   );
 };
